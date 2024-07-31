@@ -1,0 +1,22 @@
+{% extends "master.html" %}
+
+{% block title %}
+    Testing
+{% endblock %}
+
+
+{% block content %}
+    <h1>My name is {{ name }}</h1>
+    <hr>
+    {% with surname='Qodirboyev' %}
+    <h1>My surname is {{ surname }}</h1>
+    {% endwith %}
+    <hr>
+    <h1>Words</h1>
+
+    <ul>
+        {% for word in words %}
+            <li>{{ word|upper }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

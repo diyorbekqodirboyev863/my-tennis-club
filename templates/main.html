@@ -1,0 +1,15 @@
+{% extends "master.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+        <h1>My Tennis Club</h1>
+        <h3>Members</h3>
+        <a href="{% url 'all_members' %}">All members</a>
+        <h3>Table</h3>
+        <a href="{% url 'table' %}">All members</a>
+    </div>
+{% endblock %}

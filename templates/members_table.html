@@ -1,0 +1,31 @@
+{% extends "master.html" %}
+
+{% block title %}
+    Table
+{% endblock %}
+
+{% block content %}
+    <h1>Members Table!</h1>
+    <table class="table table-success table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Joined Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in table_members %}
+                <tr>
+                    <td>{{ member.id }}</td>
+                    <td>{{ member.firstname }}</td>
+                    <td>{{ member.lastname }}</td>
+                    <td><a href="mailto:{{ member.email }}">{{ member.email }}</a></td>
+                    <td>{{ member.joined_date }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

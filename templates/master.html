@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="My Tennis Club Website | Diyorbek Qodirboyev">
+    <meta name="author" content="Diyorbek Qodirboyev">
+    <title>Tennis Club | {% block title %}{% endblock %}</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+</head>
+
+<body>
+    <div class="container">
+        {% include 'nav.html' %}
+        <hr>
+        {% block content %}
+        {% endblock %}
+    </div>
+    {% bootstrap_javascript %}
+</body>
+
+</html>
