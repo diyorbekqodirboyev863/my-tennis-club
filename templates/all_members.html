@@ -9,9 +9,11 @@
     <div class="mycard">
         <h1>Members</h1>
         <div class="list-group">
-            {% for x in members %}
-                <button type="button" class="list-group-item list-group-item-action" onclick="window.location = 'details/{{ x.slug }}'">{{ x.firstname }} {{ x.lastname }}</button>
-            {% endfor %}
+            {% if members %}
+                {% for x in members %}
+                    <button type="button" class="list-group-item list-group-item-action" onclick="window.location = 'details/{{ x.slug }}'">{{ x.firstname }} {{ x.lastname }}</button>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 {% endblock %}

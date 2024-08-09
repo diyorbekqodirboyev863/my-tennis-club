@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 # Create your models here.
 class Member(models.Model):
@@ -7,7 +8,11 @@ class Member(models.Model):
     email = models.EmailField(max_length=255, unique=True, blank=True)
     joined_date = models.DateField(null=True)
     slug = models.SlugField(default="", null=False)
-    bio = models.TextField(max_length=500, null=True)
+    bio = models.TextField(max_length=500, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(f'{self.firstname} {self.lastname}')
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f'{self.firstname} {self.lastname}'

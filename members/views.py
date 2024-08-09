@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
-from . import models
+from django.contrib import messages as msg
+from . import models, forms
 
 # Create your views here.
 def members(request):
@@ -9,13 +10,13 @@ def members(request):
     return HttpResponse(template.render())
 
 def all_members(request):
-    allmembers = models.Member.objects.all()
-    return render(request=request, template_name='all_members.html', context={'members': allmembers.values()})
+    all_members = models.Member.objects.all()
+    return render(request=request, template_name='all_members.html', context={'members': all_members})
 
 def details(request, slug):
-    mymember = models.Member.objects.get(slug=slug)
+    my_member = models.Member.objects.get(slug=slug)
     tmp = loader.get_template('details.html')
-    ctx = {'mymember': mymember}
+    ctx = {'member': my_member}
     return HttpResponse(tmp.render(context=ctx, request=request))
 
 def main(request):
@@ -30,3 +31,30 @@ def testing(request):
 def members_table(request):
     tbe = models.Member.objects.all()
     return render(request=request, template_name='members_table.html', context={'table_members': tbe.values()})
+
+def add_member(request):
+    if request.method == 'POST':
+        form = forms.MemberForm(request.POST)
+        if form.is_valid():
+            form.save()
+            msg.success(request, 'Member added successfully.')
+            return redirect('all_members')
+        else:
+            msg.warning(request, 'Failed to add member.')
+    else:
+        form = forms.MemberForm()
+    return render(request, 'add_member.html', {'form': form})
+
+def update_member(request, slug):
+    member = models.Member.objects.get(slug=slug)
+    if request.method == 'POST':
+        form = forms.MemberForm(request.POST, instance=member)
+        if form.is_valid():
+            form.save()
+            msg.success(request, 'Member updated successfully.')
+            return redirect('all_members')
+        else:
+            msg.warning(request, 'Failed to update member.')
+    else:
+        form = forms.MemberForm(instance=member)
+    return render(request, 'update_member.html', {'form': form, 'member': member})

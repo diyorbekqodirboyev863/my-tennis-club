@@ -21,6 +21,11 @@
         {% endblock %}
     </div>
     {% bootstrap_javascript %}
+    {% if messages %}
+        {% for message in messages %}
+            <script>alert('{{ message.tags|upper }}: {{ message }}');</script>
+        {% endfor %}
+    {% endif %}
 </body>
 
 </html>

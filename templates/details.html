@@ -1,25 +1,25 @@
 {% extends "master.html" %}
 
 {% block title %}
-    {{ mymember.firstname }} {{ mymember.lastname }}
+    {{ member.firstname }} {{ member.lastname }}
 {% endblock %}
 
 {% block content %}
     <div class="card" style="width: 18rem;">
         <div class="card-body">
-            <h5 class="card-title">{{ mymember.firstname }} {{ mymember.lastname }}</h5>
+            <h5 class="card-title">{{ member.firstname }} {{ member.lastname }}</h5>
             <h6 class="card-subtitle mb-2 text-body-secondary">
-                <a href="mailto:{{ mymember.email }}">{{ mymember.email }}</a>
+                <a href="mailto:{{ mymember.email }}">{{ member.email }}</a>
             </h6>
             <p class="card-text">
-                {% if mymember.bio %}
-                    {{ mymember.bio }}
+                {% if member.bio %}
+                    {{ member.bio }}
                 {% else %}
                     <p class="disbled">Member bio is unavailable</p>
                 {% endif %}
             </p>
             <a href="/all_members" class="btn btn-primary">Members</a>
-            <a href="/table" class="btn btn-primary">Table</a>
+            <a href="{% url 'update_member' member.slug %}" class="btn btn-primary">Update</a>
         </div>
     </div>
 {% endblock %}
