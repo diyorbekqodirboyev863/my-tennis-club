@@ -2,21 +2,24 @@
 
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="My Tennis Club Website | Diyorbek Qodirboyev">
     <meta name="author" content="Diyorbek Qodirboyev">
+    <meta name="keywords" content="My Tennis Club, Tennis, Club, My Club">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <title>Tennis Club | {% block title %}{% endblock %}</title>
     {% load bootstrap5 %}
     {% bootstrap_css %}
 </head>
 
 <body>
+    {% include 'nav.html' %}
     <div class="container">
-        {% include 'nav.html' %}
-        <hr>
         {% block content %}
         {% endblock %}
     </div>
