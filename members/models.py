@@ -9,6 +9,8 @@ class Member(models.Model):
     joined_date = models.DateField(null=True)
     slug = models.SlugField(default="", null=False)
     bio = models.TextField(max_length=500, blank=True, null=True)
+    profile_image = models.ImageField(upload_to='members/', blank=True, null=True) # New.
+    phone_number = models.CharField(max_length=50, blank=True, null=True) # New.
 
     def save(self, *args, **kwargs):
         self.slug = slugify(f'{self.firstname} {self.lastname}')
