@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib import messages as msg
@@ -34,7 +34,7 @@ def members_table(request):
 
 def add_member(request):
     if request.method == 'POST':
-        form = forms.MemberForm(request.POST)
+        form = forms.MemberForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             form.save()
             msg.success(request, 'Member added successfully.')
@@ -46,9 +46,9 @@ def add_member(request):
     return render(request, 'add_member.html', {'form': form})
 
 def update_member(request, slug):
-    member = models.Member.objects.get(slug=slug)
+    member = get_object_or_404(models.Member, slug=slug)
     if request.method == 'POST':
-        form = forms.MemberForm(request.POST, instance=member)
+        form = forms.MemberForm(request.POST, request.FILES, instance=member)
         if form.is_valid():
             form.save()
             msg.success(request, 'Member updated successfully.')
