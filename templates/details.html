@@ -3,23 +3,26 @@
 {% block title %}
     {{ member.firstname }} {{ member.lastname }}
 {% endblock %}
+{% load static %}
 
 {% block content %}
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">{{ member.firstname }} {{ member.lastname }}</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">
-                <a href="mailto:{{ mymember.email }}">{{ member.email }}</a>
-            </h6>
-            <p class="card-text">
-                {% if member.bio %}
-                    {{ member.bio }}
-                {% else %}
-                    <p class="disbled">Member bio is unavailable</p>
-                {% endif %}
-            </p>
-            <a href="/all_members" class="btn btn-primary">Members</a>
-            <a href="{% url 'update_member' member.slug %}" class="btn btn-primary">Update</a>
+    <div class="row">
+        <div class="col-2">
+            {% if member.profile_image %}
+                <img src="{{ member.profile_image.url }}" class="card-img-top" alt="{{ member.firstname }}">
+            {% else %}
+                <img src="{% static 'default_profile_pic.png' %}" class="card-img-top" alt="Default image">
+            {% endif %}
+        </div>
+        <div class="col-10">
+            <h1>{{ member.firstname }} {{ member.lastname }}</h1>
+            <p>Email: <a href="mailto:{{ member.email }}">{{ member.email }}</a></p>
+            <p>Joined Date: {{ member.joined_date }}</p>
+            <p>Phone: {{ member.phone_number }}</p>
+            <p>Bio: {% if member.bio %}{{ member.bio }}{% else %}Member bio is unavailable{% endif %}</p>
+            <a href="{% url 'update_member' member.slug %}" class="btn btn-primary">Update Member</a>
+            <a href="#" class="btn btn-danger">Delete Member</a>
+            <a href="{% url 'all_members' %}" class="btn btn-primary">Back to Members</a>
         </div>
     </div>
 {% endblock %}
