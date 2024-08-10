@@ -58,3 +58,9 @@ def update_member(request, slug):
     else:
         form = forms.MemberForm(instance=member)
     return render(request, 'update_member.html', {'form': form, 'member': member})
+
+def delete_member(request, slug):
+    member = get_object_or_404(models.Member, slug=slug)
+    member.delete()
+    msg.success(request, 'Member deleted successfully.')
+    return redirect('all_members')

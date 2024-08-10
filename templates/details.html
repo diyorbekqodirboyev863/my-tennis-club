@@ -21,7 +21,7 @@
             <p>Phone: {{ member.phone_number }}</p>
             <p>Bio: {% if member.bio %}{{ member.bio }}{% else %}Member bio is unavailable{% endif %}</p>
             <a href="{% url 'update_member' member.slug %}" class="btn btn-primary">Update Member</a>
-            <a href="#" class="btn btn-danger">Delete Member</a>
+            <a href="{% url 'delete_member' member.slug %}" class="btn btn-danger">Delete Member</a>
             <a href="{% url 'all_members' %}" class="btn btn-primary">Back to Members</a>
         </div>
     </div>
