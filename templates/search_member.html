@@ -1,0 +1,40 @@
+{% extends "master.html" %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block content %}
+    <h1>Search Members</h1>
+    <div class="col-md-8 offset-md-2 mb-3">
+        <form class="input-group input-group-lg" action="{% url 'search_member' %}" method="get">
+            <input class="form-control" type="text" name="query" value="{{ query }}" placeholder="Search by firstname or lastname">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+    </div>
+    {% if members %}
+        <h3>Results</h3>
+        <table class="table table-success table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Joined Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in members %}
+                    <tr>
+                        <td>{{ member.id }}</td>
+                        <td><a href="{% url 'details' member.slug %}">{{ member.firstname }} {{ member.lastname }}</a></td>
+                        <td><a href="mailto:{{ member.email }}">{{ member.email }}</a></td>
+                        <td>{{ member.joined_date }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p></p>
+    {% endif %}
+{% endblock %}

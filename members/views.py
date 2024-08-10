@@ -64,3 +64,13 @@ def delete_member(request, slug):
     member.delete()
     msg.success(request, 'Member deleted successfully.')
     return redirect('all_members')
+
+def search_member(request):
+    query = request.GET.get('query', '')  # Get the search query from the request.
+    members = []  # Initialize an empty list to hold search results.
+
+    if query:
+        members = models.Member.objects.filter(firstname__icontains=query)  # Perform a case-insensitive search.
+
+    return render(request, 'search_member.html', {'members': members, 'query': query})
+
